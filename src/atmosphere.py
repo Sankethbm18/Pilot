@@ -12,3 +12,8 @@ def calculate_density(altitude):
     density = pressure / (R * temperature)
 
     return density
+
+def calculate_dynamic_pressure(density, velocity):
+    dynamic_pressure = 0.5 * density * velocity**2
+
+    return dynamic_pressure

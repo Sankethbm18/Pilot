@@ -1,5 +1,5 @@
 from src.atmosphere import calculate_density, calculate_dynamic_pressure
-from src.aerodynamics import calculate_lift, calculate_drag
+from src.aerodynamics import calculate_lift, calculate_drag, calculate_lift_to_drag
 from src.xflr5_reader import read_xflr5_polar, get_coefficients_at_alpha
 
 
@@ -29,6 +29,7 @@ cm = coefficients[2]
 # Calculate aerodynamic forces
 lift = calculate_lift(dynamic_pressure, wing_area, cl)
 drag = calculate_drag(dynamic_pressure, wing_area, cd)
+lift_to_drag = calculate_lift_to_drag(lift, drag)
 
 # Display results
 print("Altitude:", altitude, "m")
@@ -43,3 +44,4 @@ print("Cm:", cm)
 
 print("Lift:", lift, "N")
 print("Drag:", drag, "N")
+print("L/D Ratio:", lift_to_drag)

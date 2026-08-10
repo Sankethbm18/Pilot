@@ -10,13 +10,9 @@ from src.aerodynamics import (
 from src.xflr5_reader import read_xflr5_polar, get_coefficients_at_alpha
 from src.plotter import plot_cl_vs_alpha, plot_cd_vs_alpha, plot_ld_vs_alpha
 from src.polar_analysis import analyze_polar
+from src.inputs import get_flight_inputs
 
-# Flight conditions
-altitude = 1000
-velocity = 20
-
-# Aircraft geometry
-wing_area = 0.4
+altitude, velocity, wing_area, angle_of_attack = get_flight_inputs()
 
 # Atmosphere calculations
 density = calculate_density(altitude)
@@ -43,8 +39,6 @@ plot_cl_vs_alpha(polar)
 plot_cd_vs_alpha(polar)
 plot_ld_vs_alpha(polar)
 
-# Get aerodynamic coefficients at desired angle of attack
-angle_of_attack = 5.2
 coefficients = get_coefficients_at_alpha(polar, angle_of_attack)
 
 cl = coefficients[0]

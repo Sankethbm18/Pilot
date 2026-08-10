@@ -49,3 +49,13 @@ def calculate_stall_speed(mass, density, wing_area, cl_max):
     )
 
     return stall_speed
+
+def calculate_speed_for_cl(cl, density, wing_area, mass):
+    weight = mass * 9.81
+
+    speed = math.sqrt(
+        (2 * weight) /
+        (density * wing_area * cl)
+    )
+
+    return speed

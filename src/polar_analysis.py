@@ -16,5 +16,6 @@ def analyze_polar(polar_data):
         "alpha_cd_min": min_cd_point[0],
 
         "ld_max": max_ld_point[1] / max_ld_point[2],
-        "alpha_ld_max": max_ld_point[0]
+        "alpha_ld_max": max_ld_point[0],
+        "cl_at_ld_max": max_ld_point[1]
     }

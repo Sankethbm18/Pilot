@@ -3,10 +3,8 @@ from src.aerodynamics import (
     calculate_lift,
     calculate_drag,
     calculate_lift_to_drag,
-    find_max_cl,
-    find_max_ld,
-    find_min_cd,
-    calculate_stall_speed
+    calculate_stall_speed,
+    calculate_speed_for_cl
 )
 from src.xflr5_reader import read_xflr5_polar, get_coefficients_at_alpha
 from src.plotter import plot_cl_vs_alpha, plot_cd_vs_alpha, plot_ld_vs_alpha
@@ -23,6 +21,32 @@ dynamic_pressure = calculate_dynamic_pressure(density, velocity)
 filename = "data/NACA 2412_T1_Re0.100_M0.00_N9.0.txt"
 polar = read_xflr5_polar(filename)
 polar_results = analyze_polar(polar)
+cl_at_ld_max = polar_results["cl_at_ld_max"]
+cl_at_ld_max = polar_results["cl_at_ld_max"]
+
+best_ld_speed = calculate_speed_for_cl(
+    cl_at_ld_max,
+    density,
+    wing_area,
+    mass
+)
+
+print("\n========== BEST L/D PERFORMANCE ==========")
+print("Best L/D:", round(polar_results["ld_max"], 2))
+print("AoA @ Best L/D:", polar_results["alpha_ld_max"], "deg")
+print("CL @ Best L/D:", cl_at_ld_max)
+print("Best L/D Speed:", round(best_ld_speed, 2), "m/s")
+print("Best L/D Speed:", round(best_ld_speed * 3.6, 2), "km/h")
+print("==========================================")
+
+best_ld_speed = calculate_speed_for_cl(
+    cl_at_ld_max,
+    density,
+    wing_area,
+    mass
+)
+
+print("Best L/D Speed:", round(best_ld_speed, 2), "m/s")
 cl_max = polar_results["cl_max"]
 
 stall_speed = calculate_stall_speed(

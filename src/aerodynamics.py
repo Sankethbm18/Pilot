@@ -36,3 +36,16 @@ def find_min_cd(polar_data):
     cd_min = min_point[2]
 
     return alpha, cd_min
+
+import math
+
+
+def calculate_stall_speed(mass, density, wing_area, cl_max):
+    weight = mass * 9.81
+
+    stall_speed = math.sqrt(
+        (2 * weight) /
+        (density * wing_area * cl_max)
+    )
+
+    return stall_speed

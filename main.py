@@ -5,14 +5,15 @@ from src.aerodynamics import (
     calculate_lift_to_drag,
     find_max_cl,
     find_max_ld,
-    find_min_cd
+    find_min_cd,
+    calculate_stall_speed
 )
 from src.xflr5_reader import read_xflr5_polar, get_coefficients_at_alpha
 from src.plotter import plot_cl_vs_alpha, plot_cd_vs_alpha, plot_ld_vs_alpha
 from src.polar_analysis import analyze_polar
 from src.inputs import get_flight_inputs
 
-altitude, velocity, wing_area, angle_of_attack = get_flight_inputs()
+altitude, velocity, wing_area, mass, angle_of_attack = get_flight_inputs()
 
 # Atmosphere calculations
 density = calculate_density(altitude)
@@ -22,6 +23,23 @@ dynamic_pressure = calculate_dynamic_pressure(density, velocity)
 filename = "data/NACA 2412_T1_Re0.100_M0.00_N9.0.txt"
 polar = read_xflr5_polar(filename)
 polar_results = analyze_polar(polar)
+cl_max = polar_results["cl_max"]
+
+stall_speed = calculate_stall_speed(
+    mass,
+    density,
+    wing_area,
+    cl_max
+)
+
+stall_speed_kmh = stall_speed * 3.6
+
+print("\n========== STALL PERFORMANCE ==========")
+print("CLmax:", cl_max)
+print("Stall AoA:", polar_results["alpha_cl_max"], "deg")
+print("Stall Speed:", round(stall_speed, 2), "m/s")
+print("Stall Speed:", round(stall_speed_kmh, 2), "km/h")
+print("=======================================")
 
 print("\n========== POLAR ANALYSIS ==========")
 print("CLmax:", polar_results["cl_max"])
